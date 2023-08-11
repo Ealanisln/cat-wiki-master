@@ -10,7 +10,7 @@ const Hero = () => {
   md:bg-[url('../src/assets/images/Heromd.png')]
   xl:bg-[url('../src/assets/images/Herolg.png')]"
         >
-          <div className="pt-6 lg:pt-14 px-4 md:px-12 lg:px-20">
+          <div className="pt-6 lg:pt-14 px-8 md:px-12 lg:px-20">
             <Image
               alt="logo cat"
               src="/logo-mobile.png"
@@ -18,11 +18,11 @@ const Hero = () => {
               height={100}
             />
 
-            <h2 className="text-white text-md md:text-lg mb-4 md:mb-8 pt-2 pb-4">
+            <h2 className="text-white text-md md:text-lg mb-2 md:mb-8 pt-2 pb-4">
               Get to know more about <br />
               your cat breed.
             </h2>
-            <div className="relative text-gray-600 pb-28">
+            <div className="relative text-gray-600 pb-8 md:pb-28">
               <input
                 type="search"
                 name="search"
