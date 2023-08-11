@@ -4,7 +4,7 @@ import logo from "../public/CatwikiLogo.svg";
 function Footer() {
   return (
     <div className="w-full fixed bottom-0">
-      <div className="flex flex-row p-8 justify-between bg-black px-12 py-6 mx-16 rounded-t-3xl">
+      <div className="flex flex-row p-8 justify-between bg-black mx-4 md:mx-8 lg:mx-16 rounded-t-3xl">
         <div className="flex items-center md:mb-0">
           <Image
             src={logo}

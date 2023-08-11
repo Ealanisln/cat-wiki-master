@@ -4,8 +4,8 @@ import logo from '../public/CatwikiLogo.svg'
 
 function Header() {
   return (
-    <nav>
-        <Image src={logo} alt="Logo" width={150} height={50} />
+    <nav className='pt-4 pb-8 px-6'>
+        <Image src={logo} alt="Logo" width={100} height={100} />
     </nav>
   )
 }

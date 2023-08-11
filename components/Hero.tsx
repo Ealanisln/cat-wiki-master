@@ -2,37 +2,36 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="w-full fixed">
-      <div className="mx-16">
+    <div className="w-full">
+      <div className="mx-4 md:mx-8 lg:mx-16">
         <div
-          className="flex mx-auto rounded-t-3xl bg-no-repeat px-12 bg-cover bg-center
+          className="flex mx-auto rounded-t-3xl bg-no-repeat bg-cover bg-center
   bg-[url('../src/assets/images/Herosm.png')]
   md:bg-[url('../src/assets/images/Heromd.png')]
   xl:bg-[url('../src/assets/images/Herolg.png')]"
         >
-          <div className="py-12 px-12">
+          <div className="pt-6 lg:pt-14 px-4 md:px-12 lg:px-20">
             <Image
               alt="logo cat"
-              src="../CatwikiLogo.svg"
-              width={200}
-              height={200}
-              style={{ filter: "brightness(0) invert(1)" }}
+              src="/logo-mobile.png"
+              width={100}
+              height={100}
             />
 
-            <h2 className="text-white mb-8">
-              Get to know more about your cat breed.
+            <h2 className="text-white text-md md:text-lg mb-4 md:mb-8 pt-2 pb-4">
+              Get to know more about <br />
+              your cat breed.
             </h2>
-            {/* Added margin-bottom (mb-4) to create spacing */}
-            <div className="relative text-gray-600">
+            <div className="relative text-gray-600 pb-28">
               <input
                 type="search"
                 name="search"
-                placeholder="Search"
-                className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                placeholder="Enter your breed"
+                className="bg-white h-12 px-5 pr-24 rounded-full text-sm focus:outline-none"
               />
-              
-              <button type="submit" className="absolute right-4 top-0 mt-3">
-              <svg
+
+              <button type="submit" className="absolute right-4 top-0 mt-4">
+                <svg
                   className="h-4 w-4 fill-current"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
