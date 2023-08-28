@@ -1,17 +1,25 @@
-// pages/breeds/[breed].js
-import { useRouter } from "next/router";
-import BreedDetails from "@/components/BreedDetails";
+import { useState } from "react";
+import { GetStaticProps, NextPage, GetStaticPaths } from "next";
+import breedApi from "../../api/breedApi";
+import { BreedResponse } from "../../lib/interface";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-const BreedPage = () => {
-  const router = useRouter();
-  const { breed } = router.query;
+interface Props {
+  breeds: BreedResponse[]; 
+}
 
-  return (
-    <div>
-      <h1>Breed Details</h1>
-      {breed && <BreedDetails breed={breed as string} />}
-    </div>
-  );
-};
+const BreedPage:NextPage<Props> = ( { breeds } ) => {
 
-export default BreedPage;
+  console.log(breeds);
+
+}
+
+
+export default BreedPage

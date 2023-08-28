@@ -10,9 +10,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    const breedNames = response.data.map((breed: any) => breed.name);
+    const breeds = response.data;
 
-    res.status(200).json({ results: breedNames });
+    res.status(200).json({ results: breeds });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

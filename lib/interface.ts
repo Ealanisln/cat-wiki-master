@@ -1,4 +1,4 @@
-export interface Catwiki {
+export interface BreedResponse {
     weight:              Weight;
     id:                  string;
     name:                string;
