@@ -36,7 +36,7 @@ const Hero = () => {
           },
         });
 
-        const breedNames = response.data.map((breed: any) => breed.name);
+        const breedNames = response.data.map((breed: any) => breed.id);
         setBreeds(breedNames);
       } catch (error) {
         console.error(error);
