@@ -21,10 +21,15 @@ import {
 } from "@/components/ui/popover";
 import router from "next/router";
 
+interface Breed {
+  id: string; // Assuming id is a string
+  name: string;
+}
+
 const Hero = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  const [breeds, setBreeds] = useState([]); // State to hold fetched breeds
+  const [breeds, setBreeds] = useState<Breed[]>([]); // State to hold fetched breeds
 
   useEffect(() => {
     async function fetchBreeds() {
@@ -36,8 +41,11 @@ const Hero = () => {
           },
         });
 
-        const breedNames = response.data.map((breed: any) => breed.id);
-        setBreeds(breedNames);
+        const breedData: Breed[] = response.data.map((breed: any) => ({
+          id: breed.id,
+          name: breed.name,
+        }));
+        setBreeds(breedData);
       } catch (error) {
         console.error(error);
       }
@@ -77,7 +85,7 @@ const Hero = () => {
                     className="w-[200px] justify-between"
                   >
                     {value
-                      ? breeds.find((breed) => breed === value)
+                      ? breeds.find((breed) => breed.id === value)?.name // Access the breed name using .name
                       : "Select breed..."}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
@@ -89,20 +97,22 @@ const Hero = () => {
                     <CommandGroup>
                       {breeds.map((breed) => (
                         <CommandItem
-                          key={breed}
+                          key={breed.id} // Use breed.id as the key
                           onSelect={() => {
-                            setValue(breed);
+                            setValue(breed.id); // Set breed ID as the value
                             setOpen(false);
-                            router.push(`/breeds/${encodeURIComponent(breed)}`);
+                            router.push(
+                              `/breeds/${encodeURIComponent(breed.id)}`
+                            );
                           }}
                         >
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              value === breed ? "opacity-100" : "opacity-0"
+                              value === breed.id ? "opacity-100" : "opacity-0"
                             )}
                           />
-                          {breed}
+                          {breed.name} {/* Display breed name */}
                         </CommandItem>
                       ))}
                     </CommandGroup>

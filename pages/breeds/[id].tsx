@@ -1,11 +1,11 @@
 // BreedPage.tsx
 import React, { useEffect, useState } from "react";
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import Image from 'next/image';
+import Image from "next/image";
 import { BreedImage } from "../../interfaces";
 import { getBreedInfo } from "../../lib/getBreedInfo";
-import CatCard from "@/components/CatCard"; 
-import MorePhotos from "@/components/MorePhotos"; 
+import CatCard from "@/components/CatCard";
+import MorePhotos from "@/components/MorePhotos";
 
 interface Props {
   breeds: BreedImage[];
@@ -33,14 +33,6 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
     }
   }, [breeds]);
 
-  console.log(breeds);
-
-  const breedNames: string[] = breeds[0].breeds.map(
-    (breedsData) => breedsData.name
-  );
-
-  console.log(photos);
-
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6">
@@ -55,16 +47,22 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
 
 // Rest of your code remains unchanged
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const allCatBreeds = [...Array(66)].map((value, index) => `${index + 1}`);
+export const getStaticPaths: GetStaticPaths = async ({ }) => {
+  const allBreedIds: string[] = [];
+
+  // Add your logic to fetch breed IDs and populate the allBreedIds array here.
+
+  const paths = allBreedIds.map((id) => ({
+    params: { id: id.toString() }, // Ensure breed IDs are passed as strings
+  }));
 
   return {
-    paths: allCatBreeds.map((id) => ({
-      params: { id },
-    })),
+    paths,
     fallback: "blocking",
   };
 };
+
+
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
@@ -73,7 +71,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
 
     const breedId = Array.isArray(params.id) ? params.id[0] : params.id; // Convert to string if it's an array
-    const breeds = await getBreedInfo(breedId);
+    const breeds = await getBreedInfo(breedId.toString());
 
     if (!breeds) {
       throw new Error(`Breed with id ${breedId} not found`);
