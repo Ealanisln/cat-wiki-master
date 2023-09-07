@@ -1,31 +1,54 @@
 // BreedPage.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
+import Image from 'next/image';
 import { BreedImage } from "../../interfaces";
 import { getBreedInfo } from "../../lib/getBreedInfo";
-import CatCard from "@/components/CatCard"; // Import the CatCard component
+import CatCard from "@/components/CatCard"; 
+import MorePhotos from "@/components/MorePhotos"; 
 
 interface Props {
   breeds: BreedImage[];
 }
 
 const BreedPage: NextPage<Props> = ({ breeds }) => {
-  if (!breeds || !breeds[0] || !breeds[0].breeds) {
-    return <div>Loading...</div>; // Handle loading state
-  }
+  const [photos, setPhotos] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (breeds && breeds[0] && breeds[0].breeds) {
+      const breedId = breeds[0].breeds[0].id; // Assuming you want to fetch photos for the first breed
+      // Make an API request to fetch photos for the breed
+      fetch(`/api/photos?breedId=${breedId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Assuming the API response contains an array of photo objects
+          if (Array.isArray(data)) {
+            const photoUrls = data.map((photo) => photo.url);
+            setPhotos(photoUrls);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching photos:", error);
+        });
+    }
+  }, [breeds]);
+
+  console.log(breeds);
 
   const breedNames: string[] = breeds[0].breeds.map(
     (breedsData) => breedsData.name
   );
 
-  const adaptabilityValue = breeds[0].breeds[0].adaptability;
-  const numberOfColoredIcons = Math.min(adaptabilityValue, 5); // Ensure it's within 1 to 5 range
+  console.log(photos);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6">
-      {breeds.map((breedImage, index) => (
-        <CatCard key={index} breedImage={breedImage} index={index} />
-      ))}
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6">
+        {breeds.map((breedImage, index) => (
+          <CatCard key={index} breedImage={breedImage} index={index} />
+        ))}
+      </div>
+      <MorePhotos additionalPhotos={photos} />
     </div>
   );
 };
