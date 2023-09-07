@@ -13,18 +13,22 @@ const MorePhotos: React.FC<MorePhotosProps> = ({ additionalPhotos }) => {
         Other photos:
       </div>
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pb-12">
           {additionalPhotos.map((photoUrl, photoIndex) => (
             <div
               key={photoIndex}
-              className="flex justify-center text-6xl border-2 border-gray-300 rounded-xl p-6 bg-gray-100"
+              className="flex"
             >
               <Image
                 src={photoUrl}
                 alt={`Additional Photo ${photoIndex + 1}`}
-                width={300}
-                height={250}
-                className="w-full h-auto"
+                height={200}
+                width={200}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "25px",
+                }}
               />
             </div>
           ))}
