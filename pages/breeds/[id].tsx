@@ -1,7 +1,6 @@
 // BreedPage.tsx
 import React, { useEffect, useState } from "react";
 import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import Image from "next/image";
 import { BreedImage } from "../../interfaces";
 import { getBreedInfo } from "../../lib/getBreedInfo";
 import CatCard from "@/components/CatCard";
@@ -45,9 +44,7 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
   );
 };
 
-// Rest of your code remains unchanged
-
-export const getStaticPaths: GetStaticPaths = async ({ }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const allBreedIds: string[] = [];
 
   // Add your logic to fetch breed IDs and populate the allBreedIds array here.
@@ -64,14 +61,15 @@ export const getStaticPaths: GetStaticPaths = async ({ }) => {
 
 
 
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     if (!params || !params.id) {
       throw new Error("Invalid params");
     }
 
-    const breedId = Array.isArray(params.id) ? params.id[0] : params.id; // Convert to string if it's an array
-    const breeds = await getBreedInfo(breedId.toString());
+    const breedId = Array.isArray(params.id) ? params.id[0].toString() : params.id.toString(); // Convert to string if it's an array or not
+    const breeds = await getBreedInfo(breedId);
 
     if (!breeds) {
       throw new Error(`Breed with id ${breedId} not found`);
@@ -89,4 +87,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 };
 
-export default BreedPage;
+export default BreedPage

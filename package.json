@@ -1,6 +1,7 @@
 {
   "name": "cat-wiki-master",
   "version": "0.1.0",
+  "author": "Emmanuel Alanis",
   "private": true,
   "scripts": {
     "dev": "next dev",
