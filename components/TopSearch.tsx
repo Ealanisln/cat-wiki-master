@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const TopSearch = () => {
   return (
-    <div className="mx-4 md:mx-8 lg:mx-16 mb-16">
+    <div className="mx-4 md:mx-8 lg:mx-16 mb-16 px-8 xl:px-32">
       <div className="px-10 bg-[#e3e1dc] w-full rounded-b-3xl pt-4">
         <div className="flex flex-col gap-1">
           <p className="font-light text-[#4d270c]">Most Searched Breeds</p>

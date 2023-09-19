@@ -56,7 +56,7 @@ const Hero = () => {
 
   return (
     <div className="w-full">
-      <div className="mx-4 md:mx-8 lg:mx-16">
+      <div className="mx-4 md:mx-8 lg:mx-16 px-8 xl:px-32">
         <div
           className="flex mx-auto rounded-t-3xl bg-no-repeat bg-cover bg-center
           bg-[url('../src/assets/images/Herosm.png')]
