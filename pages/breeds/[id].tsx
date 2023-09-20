@@ -40,8 +40,8 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
   }, [breeds]);
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6">
+    <div className="w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6 mx-4 md:mx-8 lg:mx-16 px-8 xl:px-32">
         {breeds[0] && breeds[0].breeds
           ? breeds[0].breeds.map((breed, index) => (
               <CatCard key={index} breed={breed} coverPhoto={coverPhoto} />
