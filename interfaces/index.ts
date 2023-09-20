@@ -1,2 +1,2 @@
-export * from './breedList';
-export * from './breedImage';
+export * from './breedsImages';
+export * from './breedsList';

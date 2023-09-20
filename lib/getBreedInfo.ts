@@ -1,9 +1,9 @@
-import { BreedImage } from "../interfaces";
+import { BreedsList } from "../interfaces";
 import { breedApi } from "../api/"
 
 export const getBreedInfo = async (nameOrId: string) => {
   try {
-    const response = await breedApi.get<BreedImage[]>(
+    const response = await breedApi.get<BreedsList[]>(
       `/images/search?breed_ids=${nameOrId}`
     );
 

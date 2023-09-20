@@ -1,38 +1,24 @@
 // CatCard.tsx
 import React from "react";
 import Image from "next/image";
-import { BreedImage } from "../interfaces";
+import { BreedFull } from "@/interfaces";
 import Dash from "../public/images/dash.svg";
 import DashGray from "../public/images/dash-gray.svg";
 
 interface CatCardProps {
-  breedImage: BreedImage;
-  index: number;
+  breed: BreedFull;
+  coverPhoto?: string | null;
 }
 
-const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
-  const {
-    name,
-    description,
-    temperament,
-    origin,
-    life_span,
-    adaptability,
-    affection_level,
-    child_friendly,
-    grooming,
-    intelligence,
-    health_issues,
-    social_needs,
-    stranger_friendly,
-  } = breedImage.breeds[0];
+const CatCard: React.FC<CatCardProps> = ({ breed, coverPhoto }) => {
+const fallbackImage = "/public/cats/fallback.png";
 
   return (
     <>
       <div className="rounded-lg sm:row-span-1 row-span-2 justify-center">
-        <Image
-          alt={`Breed ${index}`}
-          src={breedImage.url}
+      <Image
+          alt={`Breed ${breed.name}`}
+          src={coverPhoto || fallbackImage}
           width={500}
           height={400}
           sizes="75vw"
@@ -45,19 +31,19 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
       </div>
       <div className="text-md font-semibold">
         <div className="text-3xl sm:text-center md:text-left pb-6 pt-4">
-          {name}
+          {breed.name}
         </div>
         <div className="text-lg font-medium md:text-left pb-4">
-          {description}
+          {breed.description}
         </div>
         <div className="py-2 text-md font-normal md:text-left pb-4">
-          <span className="font-bold">Temperament:</span> {temperament}
+          <span className="font-bold">Temperament:</span> {breed.temperament}
         </div>
         <div className="py-2 text-md font-normal md:text-left pb-4">
-          <span className="font-bold">Origin:</span> {origin}
+          <span className="font-bold">Origin:</span> {breed.origin}
         </div>
         <div className="py-2 text-md font-normal md:text-left pb-4">
-          <span className="font-bold">Life Span:</span> {life_span} years.
+          <span className="font-bold">Life Span:</span> {breed.life_span} years.
         </div>
         <div className="pt-2 h-auto flex flex-wrap lg:flex-nowrap pr-8">
           <span className="font-bold w-2/6">Adaptability:</span>
@@ -65,7 +51,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < adaptability ? (
+                  {idx < breed.adaptability ? (
                     <Image
                       src={Dash}
                       alt={`Adaptability Icon ${idx + 1}`}
@@ -89,7 +75,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < affection_level ? (
+                  {idx < breed.affection_level ? (
                     <Image
                       src={Dash}
                       alt={`Affection Icon ${idx + 1}`}
@@ -113,7 +99,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < child_friendly ? (
+                  {idx < breed.child_friendly ? (
                     <Image
                       src={Dash}
                       alt={`Affection Icon ${idx + 1}`}
@@ -137,7 +123,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < grooming ? (
+                  {idx < breed.grooming ? (
                     <Image
                       src={Dash}
                       alt={`Affection Icon ${idx + 1}`}
@@ -161,7 +147,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < intelligence ? (
+                  {idx < breed.intelligence ? (
                     <Image
                       src={Dash}
                       alt={`Intelligence Icon ${idx + 1}`}
@@ -185,7 +171,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < health_issues ? (
+                  {idx < breed.health_issues ? (
                     <Image
                       src={Dash}
                       alt={`Health issues Icon ${idx + 1}`}
@@ -209,7 +195,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < social_needs ? (
+                  {idx < breed.social_needs ? (
                     <Image
                       src={Dash}
                       alt={`Social needs Icon ${idx + 1}`}
@@ -233,7 +219,7 @@ const CatCard: React.FC<CatCardProps> = ({ breedImage, index }) => {
             {Array.from({ length: 5 }, (_, idx) => (
               <div key={idx}>
                 <div>
-                  {idx < stranger_friendly ? (
+                  {idx < breed.stranger_friendly ? (
                     <Image
                       src={Dash}
                       alt={`Stranger friendly Icon ${idx + 1}`}

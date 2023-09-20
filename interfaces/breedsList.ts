@@ -1,4 +1,4 @@
-export interface BreedImage {
+export interface BreedsList {
     breeds: BreedFull[];
     id:     string;
     url:    string;

@@ -1,17 +1,19 @@
-// BreedPage.tsx
+import { breedApi } from "@/api";
+import { BreedsList } from '@/interfaces';
+import { GetStaticProps, NextPage } from "next";
 import React, { useEffect, useState } from "react";
-import { GetStaticProps, NextPage, GetStaticPaths } from "next";
-import { BreedImage } from "../../interfaces";
+import { GetStaticPaths } from "next";
 import { getBreedInfo } from "../../lib/getBreedInfo";
 import CatCard from "@/components/CatCard";
 import MorePhotos from "@/components/MorePhotos";
 
 interface Props {
-  breeds: BreedImage[];
+  breeds: BreedsList[];
 }
 
 const BreedPage: NextPage<Props> = ({ breeds }) => {
   const [photos, setPhotos] = useState<string[]>([]);
+  const [coverPhoto, setCoverPhoto] = useState<string | null>(null); // Changed the state type to string | null
 
   useEffect(() => {
     if (breeds && breeds[0] && breeds[0].breeds) {
@@ -24,6 +26,11 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
           if (Array.isArray(data)) {
             const photoUrls = data.map((photo) => photo.url);
             setPhotos(photoUrls);
+            
+            // Set the cover photo to the first URL (if it exists)
+            if (photoUrls.length > 0) {
+              setCoverPhoto(photoUrls[0]);
+            }
           }
         })
         .catch((error) => {
@@ -35,32 +42,45 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6">
-        {breeds.map((breedImage, index) => (
-          <CatCard key={index} breedImage={breedImage} index={index} />
-        ))}
+        {breeds[0] && breeds[0].breeds
+          ? breeds[0].breeds.map((breed, index) => (
+              <CatCard key={index} breed={breed} coverPhoto={coverPhoto} />
+            ))
+          : null}
       </div>
       <MorePhotos additionalPhotos={photos} />
     </div>
   );
 };
 
+
+// You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
+
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allBreedIds: string[] = [];
+  try {
+    // Fetch breed data from the API
+    const { data } = await breedApi.get<BreedsList[]>("/breeds");
 
-  // Add your logic to fetch breed IDs and populate the allBreedIds array here.
+    // Extract the breed IDs from the data
+    const allBreedIds: string[] = data.map((breed) => breed.id);
 
-  const paths = allBreedIds.map((id) => ({
-    params: { id: id.toString() }, // Ensure breed IDs are passed as strings
-  }));
+    // Generate static paths
+    const paths = allBreedIds.map((id) => ({
+      params: { id },
+    }));
 
-  return {
-    paths,
-    fallback: "blocking",
-  };
+    return {
+      paths,
+      fallback: false,
+    };
+  } catch (error) {
+    console.error("Error fetching data from the API:", error);
+    return {
+      paths: [],
+      fallback: false,
+    };
+  }
 };
-
-
-
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
@@ -68,7 +88,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       throw new Error("Invalid params");
     }
 
-    const breedId = Array.isArray(params.id) ? params.id[0].toString() : params.id.toString(); // Convert to string if it's an array or not
+    const breedId = Array.isArray(params.id)
+      ? params.id[0].toString()
+      : params.id.toString();
     const breeds = await getBreedInfo(breedId);
 
     if (!breeds) {
@@ -77,7 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
       props: {
-        breeds: [breeds], // Wrapping the breed data in an array for consistency
+        breeds: [breeds],
       },
     };
   } catch (error) {
@@ -87,4 +109,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 };
 
-export default BreedPage
+export default BreedPage;
