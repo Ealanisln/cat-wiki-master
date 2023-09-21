@@ -1,11 +1,12 @@
 import { breedApi } from "@/api";
-import { BreedsList } from '@/interfaces';
+import { BreedsList } from "@/interfaces";
 import { GetStaticProps, NextPage } from "next";
 import React, { useEffect, useState } from "react";
 import { GetStaticPaths } from "next";
 import { getBreedInfo } from "../../lib/getBreedInfo";
 import CatCard from "@/components/CatCard";
 import MorePhotos from "@/components/MorePhotos";
+import PhotoBreed from "@/components/PhotoBreed";
 
 interface Props {
   breeds: BreedsList[];
@@ -26,7 +27,7 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
           if (Array.isArray(data)) {
             const photoUrls = data.map((photo) => photo.url);
             setPhotos(photoUrls);
-            
+
             // Set the cover photo to the first URL (if it exists)
             if (photoUrls.length > 0) {
               setCoverPhoto(photoUrls[0]);
@@ -44,7 +45,10 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 lg:gap-6 mx-4 md:mx-8 lg:mx-16 px-8 xl:px-32">
         {breeds[0] && breeds[0].breeds
           ? breeds[0].breeds.map((breed, index) => (
-              <CatCard key={index} breed={breed} coverPhoto={coverPhoto} />
+              <>
+                <PhotoBreed key={index} breed={breed} coverPhoto={coverPhoto} />
+                <CatCard key={index} breed={breed} />
+              </>
             ))
           : null}
       </div>
@@ -52,7 +56,6 @@ const BreedPage: NextPage<Props> = ({ breeds }) => {
     </div>
   );
 };
-
 
 // You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
 

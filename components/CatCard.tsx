@@ -1,5 +1,6 @@
+"use client";
 // CatCard.tsx
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { BreedFull } from "@/interfaces";
 import Dash from "../public/images/dash.svg";
@@ -10,25 +11,9 @@ interface CatCardProps {
   coverPhoto?: string | null;
 }
 
-const CatCard: React.FC<CatCardProps> = ({ breed, coverPhoto }) => {
-const fallbackImage = "/public/cats/fallback.png";
-
+const CatCard: React.FC<CatCardProps> = ({ breed }) => {
   return (
     <>
-      <div className="rounded-lg sm:row-span-1 row-span-2 justify-center">
-      <Image
-          alt={`Breed ${breed.name}`}
-          src={coverPhoto || fallbackImage}
-          width={500}
-          height={400}
-          sizes="75vw"
-          style={{
-            width: "100%",
-            height: "auto",
-            borderRadius: "25px",
-          }}
-        />
-      </div>
       <div className="text-md font-semibold">
         <div className="text-3xl sm:text-center md:text-left pb-6 pt-4">
           {breed.name}
