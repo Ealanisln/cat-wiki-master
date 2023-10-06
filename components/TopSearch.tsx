@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const TopSearch = () => {
   return (
@@ -21,6 +22,7 @@ const TopSearch = () => {
         <section className="py-8 px-4">
           <div className="flex flex-wrap -mx-2">
             <div className="w-1/2 md:w-1/4 px-2 mb-8">
+              <Link href="/breeds/abys">
               <Image
                 className="object-cover w-[450px] h-60 rounded-xl shadow-md"
                 src="/cats/abyssian.webp"
@@ -31,8 +33,11 @@ const TopSearch = () => {
               <p className="font-semibold text-[#73675c] text-left mt-2">
                 Abyssian Cat
               </p>
+              </Link>
             </div>
+          
             <div className="w-1/2 md:w-1/4 px-2 mb-8">
+            <Link href="/breeds/aege">
               <Image
                 className="object-cover w-[450px] h-60 rounded-xl shadow-md"
                 src="/cats/aegean.webp"
@@ -43,8 +48,10 @@ const TopSearch = () => {
               <p className="font-semibold text-[#73675c] text-left mt-2">
                 Aegean Cat
               </p>
+              </Link>
             </div>
             <div className="w-1/2 md:w-1/4 px-2 mb-8">
+            <Link href="/breeds/abob">
               <Image
                 className="object-cover w-[450px] h-60 rounded-xl shadow-md"
                 src="/cats/american-bobtail.webp"
@@ -55,8 +62,10 @@ const TopSearch = () => {
               <p className="font-semibold text-[#73675c] text-left mt-2">
                 American Bobtail Cat
               </p>
+              </Link>
             </div>
             <div className="w-1/2 md:w-1/4 px-2 mb-8">
+            <Link href="/breeds/acur">
               <Image
                 className="object-cover w-[450px] h-60 rounded-xl shadow-md"
                 src="/cats/american-curl.webp"
@@ -67,6 +76,7 @@ const TopSearch = () => {
               <p className="font-semibold text-[#73675c] text-left mt-2">
                 American Curl Cat
               </p>
+              </Link>
             </div>
           </div>
         </section>
